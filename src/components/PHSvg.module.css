@@ -1,0 +1,16 @@
+.land {
+  fill: #cccccc;
+  fill-opacity: 1;
+  stroke: white;
+  stroke-opacity: 1;
+  stroke-width: 0.5;
+  transition: fill 0.2s ease;
+}
+
+.land:hover {
+  fill: #a0a0ff;
+}
+
+.land:focus {
+  outline: none;
+}
