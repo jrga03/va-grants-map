@@ -6,8 +6,8 @@ const PHSvg = ({ width = "100%", height = "100%", className }) => {
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       viewBox="0 0 730 1220"
-      height={width}
-      width={height}
+      height={height}
+      width={width}
       className={className}
     >
       <g>
