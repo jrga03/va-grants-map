@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",
+    "clsx": "^2.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-tooltip": "^5.28.1",
@@ -31,7 +32,8 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "prettier": "^3.5.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "xlsx": "^0.18.5"
   },
   "lint-staged": {
     "*.{js,jsx}": "yarn run lint",

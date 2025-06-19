@@ -1,7 +1,49 @@
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import clsx from "clsx";
 
 import PHSvg from "./components/PHSvg";
 import { REGION_MAP } from "./constants";
+
+const BADGE_CLASS = {
+  MMS: "bg-pink-50 text-pink-700 ring-pink-700/10",
+  Deworming: "bg-yellow-50 text-yellow-800 ring-yellow-600/20",
+  VAS: "bg-green-50 text-green-700 ring-green-600/20",
+  "VAS+D": "bg-purple-50 text-purple-700 ring-purple-700/10",
+};
+
+function TooltipContent({ content: id }) {
+  const region = REGION_MAP.get(id);
+
+  if (!region) return null;
+
+  const { name, subdivisions } = region;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="font-semibold">{name}</div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs items-center">
+        {subdivisions.map((subdivision) => (
+          <>
+            <div key={subdivision.name}>{subdivision.name}</div>
+            <div className="flex gap-0.5">
+              {subdivision.programs.map((program) => (
+                <div
+                  key={program}
+                  className={clsx(
+                    "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-inset",
+                    BADGE_CLASS[program]
+                  )}
+                >
+                  {program}
+                </div>
+              ))}
+            </div>
+          </>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -10,15 +52,10 @@ function App() {
         <PHSvg className="select-none outline-none" />
         <ReactTooltip
           id="region-tooltip"
-          render={({ content }) => (
-            <span>
-              {REGION_MAP.get(content) ?? "Unknown region"}
-              {/* <br />
-              Relevant attribute:{" "}
-              {activeAnchor?.getAttribute("data-some-relevant-attr") || "not set"} */}
-            </span>
-          )}
+          render={TooltipContent}
           float
+          delayShow={100}
+          variant="light"
         />
       </div>
     </div>
