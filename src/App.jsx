@@ -1,5 +1,7 @@
+import { Fragment } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import clsx from "clsx";
+import { chunk } from "lodash-es";
 
 import PHSvg from "./components/PHSvg";
 import { REGION_MAP } from "./constants";
@@ -18,27 +20,40 @@ function TooltipContent({ content: id }) {
 
   const { name, subdivisions } = region;
 
+  const n = subdivisions.length;
+  const chunkedSubdivisions = chunk(
+    subdivisions,
+    n > 20 ? (n > 35 ? Math.ceil(n / 3) : Math.ceil(n / 2)) : 25
+  );
+
   return (
     <div className="flex flex-col gap-2">
       <div className="font-semibold">{name}</div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs items-center">
-        {subdivisions.map((subdivision) => (
-          <>
-            <div key={subdivision.name}>{subdivision.name}</div>
-            <div className="flex gap-0.5">
-              {subdivision.programs.map((program) => (
-                <div
-                  key={program}
-                  className={clsx(
-                    "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-inset",
-                    BADGE_CLASS[program]
-                  )}
-                >
-                  {program}
+      <div className="flex gap-4 text-xs">
+        {chunkedSubdivisions.map((subd, index) => (
+          <div
+            key={index}
+            className="grid auto-cols-auto grid-cols-2 gap-x-2 gap-y-0.5 items-center justify-start"
+          >
+            {subd.map((subdivision) => (
+              <Fragment key={subdivision.name}>
+                <div>{subdivision.name}</div>
+                <div className="flex gap-0.5">
+                  {subdivision.programs.map((program) => (
+                    <div
+                      key={program}
+                      className={clsx(
+                        "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-inset",
+                        BADGE_CLASS[program]
+                      )}
+                    >
+                      {program}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </>
+              </Fragment>
+            ))}
+          </div>
         ))}
       </div>
     </div>
