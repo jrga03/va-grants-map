@@ -423,10 +423,10 @@ const PHSvg = ({ width = "100%", height = "100%", className }) => {
     >
       <g>
         {data.map((region) => {
-          const classNames = [classes.land];
+          const isPartner = REGION_MAP.has(region.id);
+
           let tooltipProps = {};
-          if (REGION_MAP.has(region.id)) {
-            classNames.push(classes.hasGrant);
+          if (isPartner) {
             tooltipProps = {
               "data-tooltip-id": "region-tooltip",
               "data-tooltip-content": region.id,
@@ -437,7 +437,9 @@ const PHSvg = ({ width = "100%", height = "100%", className }) => {
             <path
               key={region.id}
               title={region.name}
-              className={clsx(classNames)}
+              className={clsx(classes.land, {
+                [classes.hasGrant]: isPartner,
+              })}
               d={region.d}
               {...tooltipProps}
             />
