@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated map exports — regenerate with scripts/generate-static-svg.mjs
+output
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
