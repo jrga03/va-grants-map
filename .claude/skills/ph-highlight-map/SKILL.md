@@ -107,8 +107,10 @@ load-bearing — do not "correct" it. Any code matching ids must accept both
 separators; a `PH-[A-Z]+` pattern silently drops Maguindanao and produces a map
 with an invisible hole in central Mindanao.
 
-`scripts/generate-static-svg.mjs` still has that narrower pattern, so the
-`ph-grants-map*.svg` exports it produced are missing Maguindanao.
+Both generator scripts accept either separator and abort if the parsed region
+count ever diverges from the source, so a future format drift fails loudly
+instead of shipping a hole. Any new script that parses these ids must do the
+same.
 
 ## Adding an Alias
 
